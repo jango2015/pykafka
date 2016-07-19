@@ -62,7 +62,6 @@ class BrokerConnection(object):
         :type source_port: int
         """
         self._buff = bytearray(buffer_size)
-        self._buffer_size = buffer_size
         self.host = host
         self.port = port
         self._handler = handler
@@ -132,7 +131,6 @@ class BrokerConnection(object):
                 raise SocketDisconnectedError
             size += r
         size = struct.unpack('!i', size)[0]
-        self._buff = bytearray(self._buffer_size)
         try:
             recvall_into(self._socket, self._buff, size)
         except SocketDisconnectedError:
